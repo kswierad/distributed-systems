@@ -2,7 +2,7 @@ import socket
 import datetime
 import time
 
-serverPort = 19009
+serverPort = 7675
 UDP_IP = "224.0.0.1"
 serverSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)

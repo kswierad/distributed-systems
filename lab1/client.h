@@ -5,7 +5,8 @@
 #define TAKEN 0
 
 #define CONNECT 10
-#define TOKEN 11
+#define FREE 11
+#define MSG 12
 
 #define LOGGER_PORT 7675
 
@@ -23,6 +24,6 @@ typedef struct token {
     int usage; // 0 - free, 1 - taken
     //char recipient_name[100]; // client ID
     message msg;
-    access_record ac_rec;
+    char * ip;
     int port;
 } token;

@@ -26,7 +26,7 @@ clean:
 	rm client client.o tcp.a tcp.o udp.a udp.o
 
 run-client-1:
-	./client CLIENT1 18080 127.0.0.1 -1 1 TCP
+	./client CLIENT1 18080 127.0.0.1 18081 1 TCP
 
 run-client-2:
 	./client CLIENT2 18081 127.0.0.1 18080 0 TCP

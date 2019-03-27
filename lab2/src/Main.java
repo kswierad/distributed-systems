@@ -2,11 +2,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args){
-        try {
+    public static void main(String[] args) throws Exception{
+
             DistributedMap map = new DistributedMap();
             Scanner scanner = new Scanner(System.in);
             while (true) {
+                try {
+
                 String operation = scanner.next();
                 String key;
                 Integer value;
@@ -49,10 +51,12 @@ public class Main {
                         System.out.println("Command " + operation + " is not recognized");
                         break;
                 }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 }

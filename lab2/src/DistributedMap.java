@@ -92,8 +92,8 @@ public class DistributedMap implements SimpleStringMap {
                 .addProtocol(new UFC())
                 .addProtocol(new MFC())
                 .addProtocol(new FRAG2())
-                .addProtocol(new STATE())
-                .addProtocol(new FLUSH());
+                .addProtocol(new STATE());
+                //.addProtocol(new FLUSH());
 
         stack.init();
 

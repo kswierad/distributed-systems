@@ -1,13 +1,15 @@
 import java.util.Scanner;
+import java.util.logging.LogManager;
 
 public class Main {
 
     public static void main(String[] args) throws Exception{
 
-            DistributedMap map = new DistributedMap();
-            Scanner scanner = new Scanner(System.in);
-            while (true) {
-                try {
+        LogManager.getLogManager().reset();
+        DistributedMap map = new DistributedMap();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            try {
 
                 String operation = scanner.next();
                 String key;
@@ -52,11 +54,11 @@ public class Main {
                         break;
                 }
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            }
+        }
+    }
 
 
 }

@@ -1,0 +1,68 @@
+package pl.edu.agh.cs.sr.server.search;
+
+import akka.actor.*;
+import pl.edu.agh.cs.sr.commands.*;
+
+
+public class SearchSupervisor extends AbstractActor {
+
+    private Integer count;
+    private ActorRef worker1;
+    private ActorRef worker2;
+    private ActorRef checker = null;
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(Search.class, search -> {
+
+                    count = 2;
+                    worker1 = context().actorOf(Props.create(SearchWorker.class));
+                    worker2 = context().actorOf(Props.create(SearchWorker.class));
+                    SearchExecute execute = new SearchExecute(search, "data/db1.txt");
+                    worker1.tell(execute, getSelf());
+                    execute = new SearchExecute(search, "data/db2.txt");
+                    worker2.tell(execute, getSelf());
+                })
+                .match(SearchResponse.class, response -> {
+                    if (!response.inDatabase()) {
+                        count--;
+                    } else {
+                        if (checker == null) {
+                            context().actorSelection(response.getClientPath()).tell(response, getSelf());
+                        } else {
+                            checker.tell(response, getSelf());
+                        }
+                        context().stop(worker1);
+                        context().stop(worker2);
+                        context().stop(self());
+                    }
+                    if (count == 0) {
+                        if (checker == null) {
+                            context().actorSelection(response.getClientPath()).tell(response, getSelf());
+                        } else {
+                            checker.tell(response, getSelf());
+                        }
+                        context().actorSelection(response.getClientPath()).tell(response, getSelf());
+                        context().stop(worker1);
+                        context().stop(worker2);
+                        context().stop(self());
+                    }
+                })
+                .match(Order.class, check -> {
+
+                    count = 2;
+                    worker1 = context().actorOf(Props.create(SearchWorker.class), getSelf().hashCode() + "1");
+                    worker2 = context().actorOf(Props.create(SearchWorker.class), getSelf().hashCode() + "2");
+                    checker = getSender();
+                    Search search = new Search(check.getName(), check.getClientPath());
+                    SearchExecute execute = new SearchExecute(search, "data/db1.txt");
+                    worker1.tell(execute, getSelf());
+                    execute = new SearchExecute(search, "data/db2.txt");
+                    worker2.tell(execute, getSelf());
+                })
+                .matchAny( o -> System.out.println("manager got wrong object."))
+                .build();
+    }
+
+}

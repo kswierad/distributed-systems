@@ -1,4 +1,4 @@
-package baboonkeeper.watchers;
+package zkeeper.watchers;
 
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;

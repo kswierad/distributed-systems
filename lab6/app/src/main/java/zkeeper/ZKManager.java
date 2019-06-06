@@ -1,7 +1,7 @@
-package baboonkeeper;
+package zkeeper;
 
-import baboonkeeper.watchers.ChildrenWatcher;
-import baboonkeeper.watchers.NodeWatcher;
+import zkeeper.watchers.ChildrenWatcher;
+import zkeeper.watchers.NodeWatcher;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 

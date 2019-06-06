@@ -1,4 +1,4 @@
-package baboonkeeper.watchers;
+package zkeeper.watchers;
 
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
@@ -23,7 +23,6 @@ public class NodeWatcher implements Watcher {
 
     @Override
     public void process(WatchedEvent event) {
-        System.out.println("Got event: " + event.getType());
         switch (event.getType()) {
             case NodeCreated:
                 childrenWatcher.setupChildrenWatch();
@@ -43,15 +42,14 @@ public class NodeWatcher implements Watcher {
     }
 
     private void runApplication() {
-        System.out.println("Trying to run app: " + appArgs[0]);
         if (spawned == null || !spawned.isAlive()) {
             try {
                 spawned = Runtime.getRuntime().exec(appArgs);
             } catch (IOException e) {
             }
-            System.out.println("ZKeeper successfully launched.");
+            System.out.println("App successfully launched.");
         } else {
-            System.out.println("ZKeeper already started.");
+            System.out.println("App already started.");
         }
     }
 

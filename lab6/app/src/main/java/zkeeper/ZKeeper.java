@@ -1,4 +1,4 @@
-package baboonkeeper;
+package zkeeper;
 
 import org.apache.zookeeper.KeeperException;
 
@@ -11,7 +11,7 @@ public class ZKeeper {
     private static ZKManager zkManager;
 
     public static void main(String[] args) throws IOException {
-        String[] appArgs = {"firefox"};
+        String[] appArgs = {"gimp"};
         zkManager = new ZKManager("localhost:2181,localhost:2182,localhost:2183", "/z", 3000, appArgs);
         zkManager.run();
         loop();
